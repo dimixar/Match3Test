@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ECS.Components;
 using JetBrains.Annotations;
 using Unity.Collections;
 using Unity.Entities;

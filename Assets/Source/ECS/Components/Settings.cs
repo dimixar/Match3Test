@@ -12,8 +12,14 @@ namespace ECS.Components
         public Vector2 StartPoint;
 
         public GameObject AnimalPrefab;
-        public float FallStartY;
         public float MoveSpeed = 10f;
+        public float RemoveSpeed = 10f;
+        public float FallSpeed = 15f;
+        public float AppearSpeed = 10f;
+        
+        public int GemMatch3Score = 15;
+        public int GemMatch4Score = 20;
+        public int GemMatch5Score = 30;
 
         public AnimalData GetRandomAnimalData()
         {
