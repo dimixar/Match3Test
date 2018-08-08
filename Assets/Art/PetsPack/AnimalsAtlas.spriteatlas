@@ -28,10 +28,25 @@ SpriteAtlas:
       enableRotation: 1
       enableTightPacking: 1
     variantMultiplier: 1
-    packables: []
+    packables:
+    - {fileID: 102900000, guid: c05562d8d0c77ca4da91e2b91a7d6dc9, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2f9d54401116eef4d9dbdfa72899ff8d, type: 3}
+  - {fileID: 21300000, guid: 1a3135a0a98d6fb4ca784931d515a28e, type: 3}
+  - {fileID: 21300000, guid: 98e6fdb066832c24b8b4c795bde8b201, type: 3}
+  - {fileID: 21300000, guid: a92f03f173a2f5a468b901777c234b66, type: 3}
+  - {fileID: 21300000, guid: cbf8dfc4712aa6f49b3adceccbec9d51, type: 3}
+  - {fileID: 21300000, guid: 16bd891a66d6db640a1f2160ddd6230a, type: 3}
+  - {fileID: 21300000, guid: 8bfedd6dc1f97c441a059c4edbd2489c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Black-Cat
+  - Brown-Deer
+  - Green-Frog
+  - Orange-Dog
+  - Blue-Duck
+  - yellow-bear
+  - White-Mouse
   m_Tag: AnimalsAtlas
   m_IsVariant: 0
