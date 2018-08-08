@@ -1,6 +1,5 @@
 ﻿using ECS.Components;
 using Unity.Entities;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace ECS.Systems
