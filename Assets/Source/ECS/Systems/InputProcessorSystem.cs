@@ -6,6 +6,8 @@ namespace ECS.Systems
 {
     public class InputProcessorSystem : ComponentSystem
     {
+        private const float CameraDistance = 10f;
+
         public struct InputGroup
         {
             public InputData InputData;
@@ -26,6 +28,10 @@ namespace ECS.Systems
             if (inputData == null)
                 return;
 
+            inputData.State = InputState.None;
+
+            inputData.BackDown = Input.GetKeyDown(KeyCode.Escape);
+
             //NOTE: Only for the purpose of the prototype
             if (Input.touchCount > 0)
             {
@@ -43,22 +49,46 @@ namespace ECS.Systems
         {
             var touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
-                inputData.DownPos = camera.ScreenToWorldPoint(touch.position);
-            if (touch.phase != TouchPhase.Moved && touch.phase != TouchPhase.Ended)
+            {
+                inputData.DownPos = camera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, CameraDistance));
+                inputData.State = InputState.Down;
+            }
+
+            if (inputData.State == InputState.Down || inputData.State == InputState.Moved)
+            {
+                Vector2 nextPos = camera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, CameraDistance));
+                if (nextPos - inputData.DownPos != Vector2.zero)
+                    inputData.State = InputState.Moved;
+            }
+            
+            if (touch.phase != TouchPhase.Ended)
                 return;
 
-            inputData.UpPos = camera.ScreenToWorldPoint(touch.position);
+            inputData.UpPos = camera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, CameraDistance));
+            inputData.State = InputState.Up;
         }
 
         private void ProcessMouseInput(Camera camera, InputData inputData)
         {
             if (Input.GetMouseButtonDown(0))
-                inputData.DownPos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
+            {
+                inputData.DownPos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, CameraDistance));
+                inputData.State = InputState.Down;
+            }
+
+            if (inputData.State == InputState.Down || inputData.State == InputState.Moved)
+            {
+                Vector2 deltaPos =
+                    camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, CameraDistance));
+                if (deltaPos - inputData.DownPos != Vector2.zero)
+                    inputData.State = InputState.Moved;
+            }
             
             if (Input.GetMouseButtonUp(0) == false)
                 return;
             
-            inputData.UpPos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
+            inputData.UpPos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, CameraDistance));
+            inputData.State = InputState.Up;
         }
 
         private void ProcessSwipe(InputData inputData)
@@ -76,7 +106,7 @@ namespace ECS.Systems
             else if (absoluteVal.x < absoluteVal.y)
             {
                 inputData.SwipeDirection.x = 0f;
-                inputData.SwipeDirection.y = Mathf.Sign(inputData.SwipeDirection.y);
+                inputData.SwipeDirection.y = Mathf.Sign(inputData.SwipeDirection.y) * -1;
             }
             else
             {

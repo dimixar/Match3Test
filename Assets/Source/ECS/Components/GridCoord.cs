@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GridCoord : MonoBehaviour
+namespace ECS.Components
 {
-    public float X;
-    public float Y;
+    public class GridCoord : MonoBehaviour
+    {
+        public Vector2 Value;
+    }
 }

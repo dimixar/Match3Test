@@ -8,5 +8,15 @@ namespace ECS.Components
         public Vector2 UpPos;
         public Vector2 SwipeDirection;
         public bool IsSwipe;
+        public InputState State;
+        public bool BackDown;
+    }
+
+    public enum InputState
+    {
+        None,
+        Down,
+        Moved,
+        Up
     }
 }
