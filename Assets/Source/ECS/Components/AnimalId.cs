@@ -1,7 +1,7 @@
 ﻿using Data;
 using UnityEngine;
 
-namespace ECS
+namespace ECS.Components
 {
     public class AnimalId : MonoBehaviour
     {
