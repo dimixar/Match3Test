@@ -11,6 +11,7 @@ namespace ECS.Systems
         {
             public Position2D Position;
             public Move2D Move2D;
+            public ElementState State;
         }
 
         public struct SettingsGroup
@@ -33,12 +34,18 @@ namespace ECS.Systems
             {
                 if (entity.Move2D.ShouldMove == false)
                     continue;
-                
+
+                float speed = entity.Move2D.isFalling ? settings.FallSpeed : settings.MoveSpeed;
                 Position2D pos = entity.Position;
                 pos.Value = Vector2.Lerp(pos.Value.ToVector2(), entity.Move2D.TargetValue,
-                    Time.deltaTime * settings.MoveSpeed);
+                    Time.deltaTime * speed);
                 if (pos.Value.ToVector2() == entity.Move2D.TargetValue)
+                {
                     entity.Move2D.ShouldMove = false;
+                    entity.Move2D.isFalling = false;
+                    pos.Value = entity.Move2D.TargetValue;
+                    entity.State.IsMoved = true;
+                }
             }
         }
     }

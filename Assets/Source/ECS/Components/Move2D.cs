@@ -6,5 +6,6 @@ namespace ECS.Components
     {
         public Vector2 TargetValue;
         public bool ShouldMove;
+        public bool isFalling;
     }
 }

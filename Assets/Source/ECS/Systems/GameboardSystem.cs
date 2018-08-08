@@ -1,4 +1,5 @@
 ﻿using Data;
+using ECS.Components;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -38,8 +39,8 @@ namespace ECS.Systems
                         enemy.GetComponent<AnimalId>().Data = animalData;
                         enemy.gameObject.name = animalData.name + "( " + x + ", " + y + " )";
                         var gridCoord = enemy.GetComponent<GridCoord>();
-                        gridCoord.X = x;
-                        gridCoord.Y = y;
+                        gridCoord.Value.x = x;
+                        gridCoord.Value.y = y;
                         enemy.SetActive(true);
                     }
                 }
